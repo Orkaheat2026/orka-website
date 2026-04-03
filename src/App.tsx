@@ -170,27 +170,33 @@ export default function App() {
             </div>
           </div>
 
-          <nav className="hidden items-center gap-5 text-sm md:flex">
-            <a href="#services" className="text-white/75 transition hover:text-white">Services</a>
-            <a href="#installs" className="text-white/75 transition hover:text-white">Boiler Installs</a>
-            <a href="#gallery" className="text-white/75 transition hover:text-white">Gallery</a>
-            <a href="#reviews" className="text-white/75 transition hover:text-white">Reviews</a>
-            <a href="#contact" className="text-white/75 transition hover:text-white">Contact</a>
-            <a
-              href="https://www.facebook.com/people/ORKA-Heating-and-Plumbing/61578329100877/"
-              target="_blank"
-              rel="noreferrer"
-              className="text-white/75 transition hover:text-blue-400"
-            >
-              Facebook
-            </a>
-            <a
-              href="tel:07354764651"
-              className="rounded-2xl bg-gradient-to-r from-red-500 to-blue-500 px-5 py-2.5 font-bold text-white shadow-lg shadow-red-500/20 transition hover:scale-105"
-            >
-              Call 07354 764651
-            </a>
-          </nav>
+         <nav className="hidden md:flex items-center gap-6 text-sm font-bold uppercase tracking-[0.2em]">
+
+  <a href="#services" className="hover:text-blue-400 transition">Services</a>
+
+  <div className="relative group">
+    <button
+      type="button"
+      className="hover:text-blue-400 transition flex items-center gap-2"
+    >
+      More Services <span>▾</span>
+    </button>
+
+   <div className="absolute left-0 top-full mt-2 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 min-w-[240px] rounded-2xl border border-white/10 bg-black/95 p-3 shadow-2xl">
+      <a href="#services" className="block rounded-lg px-3 py-2 hover:bg-white/10">Boiler Installations</a>
+      <a href="#services" className="block rounded-lg px-3 py-2 hover:bg-white/10">Boiler Repairs</a>
+      <a href="#services" className="block rounded-lg px-3 py-2 hover:bg-white/10">Boiler Servicing</a>
+      <a href="#services" className="block rounded-lg px-3 py-2 hover:bg-white/10">Central Heating Work</a>
+      <a href="#services" className="block rounded-lg px-3 py-2 hover:bg-white/10">General Plumbing</a>
+      <a href="#contact" className="block rounded-lg px-3 py-2 hover:bg-white/10">Emergency Call Outs</a>
+    </div>
+  </div>
+
+  <a href="#gallery" className="hover:text-blue-400 transition">Gallery</a>
+  <a href="#reviews" className="hover:text-blue-400 transition">Reviews</a>
+  <a href="#contact" className="hover:text-blue-400 transition">Contact</a>
+
+</nav>
         </div>
       </header>
 
