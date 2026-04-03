@@ -12,7 +12,7 @@ import {
   MapPin,
   ChevronRight,
 } from "lucide-react";
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/xabcd123";
+const FORMSPREE_ENDPOINT = https://formspree.io/f/xnjogzlr
 
 const WHATSAPP_NUMBER = "447354764651";
 const WHATSAPP_TEXT = encodeURIComponent(
