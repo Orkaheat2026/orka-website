@@ -11,8 +11,8 @@ npm run dev
 ```
 
 ## Before going live
-- Replace `your-form-id` in `src/App.tsx` with your real Formspree ID.
-- Turn on Formspree email notifications and autoresponder.
+- Confirm Formspree email notifications are enabled for form `xnjogzlr`.
+- Submit one test enquiry after deployment and confirm it reaches the correct inbox.
 - Push this folder to GitHub.
 - Import the repo into Vercel and deploy.
 

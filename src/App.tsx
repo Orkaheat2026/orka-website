@@ -12,7 +12,7 @@ import {
   MapPin,
   ChevronRight,
 } from "lucide-react";
-const FORMSPREE_ENDPOINT = https://formspree.io/f/xnjogzlr
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xnjogzlr";
 
 const WHATSAPP_NUMBER = "447354764651";
 const WHATSAPP_TEXT = encodeURIComponent(
@@ -112,12 +112,16 @@ const areas = [
 export default function App() {
   const [form, setForm] = useState({ name: "", phone: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [formError, setFormError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setSubmitting(true);
+    setFormError("");
 
     try {
-      await fetch(FORMSPREE_ENDPOINT, {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -126,10 +130,16 @@ export default function App() {
         body: JSON.stringify(form),
       });
 
+      if (!response.ok) {
+        throw new Error("Enquiry could not be sent");
+      }
+
       setSubmitted(true);
       setForm({ name: "", phone: "", message: "" });
     } catch {
-      alert("Something went wrong. Please call instead.");
+      setFormError("Your enquiry could not be sent. Please call or WhatsApp us instead.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -287,9 +297,9 @@ export default function App() {
       <section id="services" className="mx-auto max-w-7xl px-6 py-20 md:py-24">
         <div className="mb-10 max-w-3xl">
           <div className="text-sm uppercase tracking-[0.3em] text-red-500">Services</div>
-          <h2 className="mt-3 text-4xl font-black md:text-5xl">Built to win emergency work and installation jobs</h2>
+          <h2 className="mt-3 text-4xl font-black md:text-5xl">Heating and plumbing services you can rely on</h2>
           <p className="mt-4 leading-8 text-white/70">
-            Clear service pages, stronger trust signals and sharper positioning make it easier for customers to choose ORKA quickly.
+            From urgent breakdowns to planned boiler installations, ORKA provides clear advice, careful workmanship and dependable local service.
           </p>
         </div>
 
@@ -424,12 +434,12 @@ export default function App() {
               text: "No heating, no hot water or a breakdown? We prioritise urgent call outs and fast contact.",
             },
             {
-              title: "Professional presentation",
-              text: "Premium branding, strong trust signals and a cleaner site help customers feel confident before they even call.",
+              title: "Clean, careful workmanship",
+              text: "Your home is treated with care, with tidy work and clear communication from start to finish.",
             },
             {
-              title: "Built for conversions",
-              text: "Clear calls to action, specialist positioning and a simple quote form turn visits into real leads.",
+              title: "Straightforward quotations",
+              text: "Get a clear quotation for planned work, with the proposed work explained before the job begins.",
             },
           ].map((item) => (
             <div key={item.title} className="rounded-[1.75rem] border border-white/10 bg-white/5 p-7">
@@ -444,7 +454,7 @@ export default function App() {
         <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div>
             <div className="text-sm uppercase tracking-[0.3em] text-blue-400">Areas We Cover</div>
-            <h2 className="mt-3 text-4xl font-black md:text-5xl">Local coverage that helps you rank and convert</h2>
+            <h2 className="mt-3 text-4xl font-black md:text-5xl">Covering Newcastle and the wider North East</h2>
             <p className="mt-4 max-w-3xl leading-8 text-white/70">
               ORKA Heating & Plumbing covers the North East and surrounding areas for boiler installations,
               boiler repairs, servicing, plumbing work and emergency call outs.
@@ -508,7 +518,7 @@ export default function App() {
         <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div>
             <div className="text-sm uppercase tracking-[0.3em] text-red-500">Facebook Reviews</div>
-            <h2 className="mt-3 text-4xl font-black md:text-5xl">Social proof that helps close jobs</h2>
+            <h2 className="mt-3 text-4xl font-black md:text-5xl">See what local customers say</h2>
             <p className="mt-4 max-w-2xl leading-8 text-white/70">
               ORKA Heating & Plumbing is listed on Facebook with recommendations enabled,
               so customers can see public feedback and contact us directly.
@@ -555,29 +565,29 @@ export default function App() {
         </div>
       </section>
 
-      <section id="seo" className="mx-auto max-w-7xl px-6 pb-20 md:pb-24">
+      <section className="mx-auto max-w-7xl px-6 pb-20 md:pb-24">
         <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8 md:p-10">
-          <div className="text-sm uppercase tracking-[0.3em] text-red-500">Local SEO</div>
-          <h2 className="mt-3 text-4xl font-black md:text-5xl">Built to help ORKA get found locally</h2>
+          <div className="text-sm uppercase tracking-[0.3em] text-red-500">Why choose ORKA?</div>
+          <h2 className="mt-3 text-4xl font-black md:text-5xl">Professional heating work, backed by local service</h2>
           <div className="mt-6 grid gap-6 lg:grid-cols-2">
             <div>
               <p className="leading-8 text-white/70">
-                This website is structured around the phrases local customers search for most:
-                boiler installation, boiler repair, boiler servicing, emergency plumber,
-                emergency heating engineer and emergency call outs in the North East.
+                Whether you need urgent help with a breakdown or are planning a new boiler,
+                you will receive practical advice, responsive communication and work completed
+                with professional pride.
               </p>
               <p className="mt-4 leading-8 text-white/70">
-                To push rankings harder, connect this site to your Google Business Profile,
-                keep adding real job photos, collect more reviews and create area-based pages later.
+                ORKA Heating & Plumbing serves homes and landlords across Newcastle, North
+                Tyneside, Gateshead and surrounding North East areas.
               </p>
             </div>
             <div className="grid gap-4">
               {[
-                "Google Business Profile linked",
-                "Real job gallery added",
-                "Facebook reviews linked",
-                "Gas Safe trust signals added",
-                "Area coverage section added",
+                "Gas Safe registered business",
+                "24/7 emergency call-out availability",
+                "Real completed-work gallery",
+                "Boiler installation specialists",
+                "Local North East coverage",
               ].map((item) => (
                 <div key={item} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-black/40 px-4 py-4 text-white/80">
                   <CheckCircle2 className="h-5 w-5 shrink-0 text-red-400" />
@@ -596,8 +606,7 @@ export default function App() {
               <div className="text-sm uppercase tracking-[0.3em] text-red-500">Get in touch</div>
               <h2 className="mt-3 text-4xl font-black">Need an emergency call out or boiler quote?</h2>
               <p className="mt-4 leading-8 text-white/72">
-                Call now for urgent issues, or send your details for a fast quote. This page is built
-                to make contacting ORKA quick and easy.
+                Call now for urgent issues, or send your details for a fast quotation on planned work.
               </p>
               <div className="mt-6 space-y-4 text-white/80">
                 <a href="tel:07354764651" className="flex items-center gap-3 text-lg font-bold hover:text-white">
@@ -629,21 +638,34 @@ export default function App() {
                 </p>
               ) : (
                 <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+                  <label htmlFor="quote-name" className="sr-only">Name</label>
                   <input
+                    id="quote-name"
+                    name="name"
+                    autoComplete="name"
                     required
                     placeholder="Name"
                     value={form.name}
                     className="w-full rounded-2xl border border-white/15 bg-black px-4 py-3 text-white placeholder:text-white/35 outline-none transition focus:border-red-500"
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                   />
+                  <label htmlFor="quote-phone" className="sr-only">Phone number</label>
                   <input
+                    id="quote-phone"
+                    name="phone"
+                    type="tel"
+                    inputMode="tel"
+                    autoComplete="tel"
                     required
                     placeholder="Phone"
                     value={form.phone}
                     className="w-full rounded-2xl border border-white/15 bg-black px-4 py-3 text-white placeholder:text-white/35 outline-none transition focus:border-red-500"
                     onChange={(e) => setForm({ ...form, phone: e.target.value })}
                   />
+                  <label htmlFor="quote-message" className="sr-only">Tell us what you need</label>
                   <textarea
+                    id="quote-message"
+                    name="message"
                     required
                     placeholder="Tell us what you need"
                     value={form.message}
@@ -652,22 +674,33 @@ export default function App() {
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                   />
 
-                  <button className="w-full rounded-2xl bg-gradient-to-r from-red-500 to-blue-500 px-6 py-3.5 font-bold text-white shadow-lg shadow-red-500/20 transition hover:scale-[1.02]">
-                    Send Enquiry
+                  {formError && (
+                    <p role="alert" className="rounded-2xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm font-semibold text-red-200">
+                      {formError}
+                    </p>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="w-full rounded-2xl bg-gradient-to-r from-red-500 to-blue-500 px-6 py-3.5 font-bold text-white shadow-lg shadow-red-500/20 transition hover:scale-[1.02] disabled:cursor-wait disabled:opacity-60"
+                  >
+                    {submitting ? "Sending…" : "Send Enquiry"}
                   </button>
                 </form>
               )}
-
-              <p className="mt-4 text-sm text-white/50">
-                Before going live: replace <span className="font-semibold text-white">your-form-id</span> with your real Formspree ID.
-              </p>
-              <p className="mt-2 text-sm text-white/50">
-                Turn on Formspree email notifications and autoresponder to get instant lead alerts and automatic reply messages.
-              </p>
+              <p className="mt-4 text-sm text-white/50">For emergencies, please call so we can respond as quickly as possible.</p>
             </div>
           </div>
         </div>
       </section>
+
+      <footer className="border-t border-white/10 bg-white/[0.03]">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-8 text-sm text-white/55 md:flex-row md:items-center md:justify-between">
+          <p>© {new Date().getFullYear()} ORKA Heating & Plumbing. All rights reserved.</p>
+          <p>Gas Safe Registered No. 977946 · Serving Newcastle and the North East</p>
+        </div>
+      </footer>
     </div>
   );
 }
